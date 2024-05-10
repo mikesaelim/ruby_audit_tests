@@ -1,0 +1,20 @@
+name: Test
+
+on: workflow_dispatch
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'civisanalytics/ruby_audit'
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.0'
+          bundler-cache: true
+      - name: Run RubyAudit
+        run: ./exe/ruby-audit check
+      - name: Shouldn't get to this step
+        run: echo "hmmm"
