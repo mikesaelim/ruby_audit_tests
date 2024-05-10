@@ -1,0 +1,25 @@
+name: Test
+
+on: workflow_dispatch
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        ruby_version: [3.1, 3.2, 3.3]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'civisanalytics/ruby_audit'
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby_version }}
+          bundler-cache: true
+      - name: Install dependencies
+        run: bundle install --jobs=3 --retry=3
+      - name: Initialize submodule
+        run: git submodule update --init
+      - name: Run tests
+        run: bundle exec rake
