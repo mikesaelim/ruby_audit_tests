@@ -14,7 +14,13 @@ jobs:
         with:
           ruby-version: '3.3.0'
           bundler-cache: true
-      - name: Run RubyAudit
-        run: ./exe/ruby-audit check
-      - name: Shouldn't get to this step
-        run: echo "hmmm"
+      - name: Run RubyAudit and expect a nonzero exit code
+        run: |
+          set +e -o pipefail
+          ./exe/ruby-audit check | tee output.txt
+          [[ $? -ne 0 ]]
+      - name: Run RubyAudit and expect a nonzero exit code should fail
+        run: |
+          set +e -o pipefail
+          ./exe/ruby-audit check -i CVE-2024-27282 | tee output.txt
+          [[ $? -ne 0 ]]
