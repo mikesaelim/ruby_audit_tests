@@ -3,7 +3,8 @@ name: Integration test
 on: workflow_dispatch
 
 jobs:
-  integration:
+  ruby330:
+    name: Ruby 3.3.0 finds CVE-2024-27282
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -19,8 +20,26 @@ jobs:
           set +e -o pipefail
           ./exe/ruby-audit check | tee output.txt
           [[ $? -ne 0 ]]
-      - name: Run RubyAudit and expect a nonzero exit code should fail
+      - name: Expect advisory CVE-2024-27282 to be in the output
+        run: |
+          grep CVE-2024-27282 output.txt
+  ruby330_fail:
+    name: Ruby 3.3.0 ignoring CVE-2024-27282
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'civisanalytics/ruby_audit'
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3.0'
+          bundler-cache: true
+      - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
           ./exe/ruby-audit check -i CVE-2024-27282 | tee output.txt
           [[ $? -ne 0 ]]
+      - name: Expect advisory CVE-2024-27282 to be in the output
+        run: |
+          grep CVE-2024-27282 output.txt
