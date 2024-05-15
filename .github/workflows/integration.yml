@@ -3,7 +3,7 @@ name: Integration test
 on: workflow_dispatch
 
 jobs:
-  mri_ruby_330:
+  mri_ruby_3_3_0:
     name: MRI Ruby 3.3.0 finds CVE-2024-27282
     runs-on: ubuntu-latest
     steps:
@@ -23,8 +23,8 @@ jobs:
       - name: Expect advisory CVE-2024-27282 to be in the output
         run: |
           grep CVE-2024-27282 output.txt
-  jruby_9370:
-    name: JRuby 9.3.7.0 finds CVE-2022-25857
+  jruby_9_3_7:
+    name: JRuby 9.3.7 finds CVE-2022-25857
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,3 +43,23 @@ jobs:
       - name: Expect advisory CVE-2022-25857 to be in the output
         run: |
           grep CVE-2022-25857 output.txt
+  rubygems_3_0_1:
+    name: rubygems 3.0.1 finds CVE-2019-8325
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'civisanalytics/ruby_audit'
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.6.1'
+          bundler-cache: true
+      - name: Run RubyAudit and expect a nonzero exit code
+        run: |
+          set +e -o pipefail
+          ./exe/ruby-audit check | tee output.txt
+          [[ $? -ne 0 ]]
+      - name: Expect advisory CVE-2019-8325 to be in the output
+        run: |
+          grep CVE-2019-8325 output.txt
