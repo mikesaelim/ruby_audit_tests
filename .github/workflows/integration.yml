@@ -58,7 +58,7 @@ jobs:
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
-          ./exe/ruby-audit check | tee output.txt
+          ruby-audit check | tee output.txt
           [[ $? -ne 0 ]]
       - name: Expect advisory CVE-2019-8325 to be in the output
         run: |
