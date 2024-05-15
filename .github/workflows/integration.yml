@@ -59,7 +59,7 @@ jobs:
         run: |
           bundle exec rake install
           export PATH="/home/runner/.gem/ruby/2.6.0/bin:${PATH}"
-          gem which bundle
+          gem which bundler
           gem which ruby_audit
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
