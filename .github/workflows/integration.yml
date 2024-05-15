@@ -3,8 +3,8 @@ name: Integration test
 on: workflow_dispatch
 
 jobs:
-  ruby330:
-    name: Ruby 3.3.0 finds CVE-2024-27282
+  mri_ruby_330:
+    name: MRI Ruby 3.3.0 finds CVE-2024-27282
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,8 +23,8 @@ jobs:
       - name: Expect advisory CVE-2024-27282 to be in the output
         run: |
           grep CVE-2024-27282 output.txt
-  ruby330_fail:
-    name: Ruby 3.3.0 ignoring CVE-2024-27282
+  jruby_9370:
+    name: JRuby 9.3.7.0 finds CVE-2022-25857
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -33,13 +33,13 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3.0'
+          ruby-version: 'jruby-9.3.7'
           bundler-cache: true
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
           ./exe/ruby-audit check | tee output.txt
           [[ $? -ne 0 ]]
-      - name: Expect advisory CVE-2024-fake to be in the output
+      - name: Expect advisory CVE-2022-25857 to be in the output
         run: |
-          grep CVE-2024-fake output.txt
+          grep CVE-2022-25857 output.txt
