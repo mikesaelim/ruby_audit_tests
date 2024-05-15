@@ -56,7 +56,10 @@ jobs:
           ruby-version: '2.6.1'
           bundler-cache: true
       - name: Install the RubyAudit gem locally
-        run: bundle exec rake install
+        run: |
+          bundle exec rake install
+          gem which bundle
+          gem which ruby_audit
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
