@@ -62,6 +62,7 @@ jobs:
           set +e -o pipefail
           export PATH="/home/runner/.gem/ruby/2.6.0:${PATH}"
           which bundle
+          gem which 'ruby_audit'
           gem env
           ruby-audit check | tee output.txt
           [[ $? -ne 0 ]]
