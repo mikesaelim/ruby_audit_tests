@@ -60,7 +60,7 @@ jobs:
           bundle exec rake install
           export PATH="/home/runner/.gem/ruby/2.6.0/bin:${PATH}"
           which bundler
-          which ruby_audit
+          which ruby-audit
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
