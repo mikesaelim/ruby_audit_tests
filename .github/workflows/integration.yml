@@ -60,6 +60,7 @@ jobs:
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
+          which bundle
           gem env
           ruby-audit check | tee output.txt
           [[ $? -ne 0 ]]
