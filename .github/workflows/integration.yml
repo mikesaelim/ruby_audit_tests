@@ -60,6 +60,7 @@ jobs:
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
+          export PATH="/home/runner/.gem/ruby/2.6.0:${PATH}"
           which bundle
           gem env
           ruby-audit check | tee output.txt
