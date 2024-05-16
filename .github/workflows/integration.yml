@@ -58,9 +58,8 @@ jobs:
       - name: Install the RubyAudit gem locally
         run: |
           bundle exec rake install
-          export PATH="/home/runner/.gem/ruby/2.6.0/bin:${PATH}"
-          which bundler
-          which ruby-audit
+          gem which bundler
+          gem which ruby_audit
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
