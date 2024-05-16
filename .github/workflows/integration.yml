@@ -49,7 +49,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          repository: 'civisanalytics/ruby_audit'
+          # repository: 'civisanalytics/ruby_audit'
+          repository: 'mikesaelim/ruby_audit'
+          ref: 'fix-rubygems-check'
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -62,8 +64,6 @@ jobs:
       - name: Run RubyAudit and expect a nonzero exit code
         run: |
           set +e -o pipefail
-          ruby -v
-          gem -v
           ruby-audit check | tee output.txt
           [[ $? -ne 0 ]]
       - name: Expect advisory CVE-2019-8325 to be in the output
