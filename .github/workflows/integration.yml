@@ -49,13 +49,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          # repository: 'civisanalytics/ruby_audit'
-          repository: 'mikesaelim/ruby_audit'
-          ref: 'fix-rubygems-check'
+          repository: 'civisanalytics/ruby_audit'
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6.1'
+          ruby-version: '2.6.1' # ruby 2.6.1 uses rubygems 3.0.1
           # Cannot use `bundler-cache: true` here because we also want to install the RubyAudit gem
       - name: Install dependencies and the local RubyAudit gem
         run: |
