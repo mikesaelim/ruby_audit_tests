@@ -54,7 +54,8 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '2.6.1'
-          bundler-cache: true
+      - name: Install dependencies
+        run: bundle install --jobs=3 --retry=3      
       - name: Install the RubyAudit gem locally
         run: |
           bundle exec rake install
