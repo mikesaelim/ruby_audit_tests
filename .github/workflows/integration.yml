@@ -1,6 +1,9 @@
 name: Integration test
 
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '37 11 * * 5' # Fridays at 11:37 UTC
 
 jobs:
   mri_ruby_3_3_0:
