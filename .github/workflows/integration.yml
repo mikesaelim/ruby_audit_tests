@@ -8,7 +8,7 @@ on:
 jobs:
   mri_ruby_3_3_0:
     name: MRI Ruby 3.3.0 finds CVE-2024-27282
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -28,7 +28,7 @@ jobs:
           grep CVE-2024-27282 output.txt
   jruby_9_3_7:
     name: JRuby 9.3.7 finds CVE-2022-25857
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:
@@ -48,7 +48,7 @@ jobs:
           grep CVE-2022-25857 output.txt
   rubygems_3_0_1:
     name: rubygems 3.0.1 finds CVE-2019-8325
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
         with:
